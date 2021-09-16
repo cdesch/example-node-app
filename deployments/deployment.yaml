@@ -4,6 +4,7 @@ metadata:
   name: node-app-deployment
   labels:
     app: node-app
+    env: production
 spec:
   replicas: 1
   selector:
