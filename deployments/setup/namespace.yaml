@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: example-node-app
+  labels:
+    name: example-node-app
