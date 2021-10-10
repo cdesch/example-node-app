@@ -14,16 +14,24 @@
 
 ## Kubernetes
 
+kubectl config set-context --current --namespace=example-node-app 
+
+
 Deploy App
 
+    kubectl apply -f deployments/setup
     kubectl apply -n example-node-app -f deployments/deployment.yaml
+    kubectl delete -n example-node-app -f deployments/deployment.yaml
+
+    kubectl get pods -n example-node-app 
+    kubectl  logs -n example-node-app  node-app-deployment-5d9fbc8946-cs88x
 
 
 Deploy resources
 
     kubectl config get-contexts  
     kubectl config use-context docker-desktop
-    kubectl create -f deployments/setup
+    kubectl apply -f deployments/setup
     kubectl create -n example-node-app -f deployments
 
     kubectl create -n example-node-app -f deployments/monitoring

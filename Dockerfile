@@ -1,11 +1,12 @@
-FROM node:14-alpine
+FROM node:14-alpine as base
 
+RUN mkdir /app
 WORKDIR /app
 
 # COPY package.json package-lock.json ./
 COPY package.json yarn.lock ./
 
-# RUN npm install --production
+# Install Dependencies
 RUN yarn install
 
 COPY . .
