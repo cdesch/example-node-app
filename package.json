@@ -3,13 +3,10 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build2": "babel app.js -d dist",
     "clean": "rm -rf dist",
-    "build3": "npm run clean && babel app.js --out-dir dist --copy-files",
     "build": "npm run clean && babel ./src --out-dir dist --copy-files",
-
-    "start": "npm run build && node dist/index.js",
     "serve": "node dist/app.js",
+    "start": "babel-node src/app.js",
     "start:watch": "nodemon --exec babel-node src/app.js"
   },
   "dependencies": {

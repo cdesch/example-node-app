@@ -1,6 +1,6 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: rpc-app
+  name: example-node-app
   labels:
-    name: rpc-app
+    name: example-node-app
