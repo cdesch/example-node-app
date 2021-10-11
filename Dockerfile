@@ -9,10 +9,18 @@ COPY package.json yarn.lock ./
 # Install Dependencies
 RUN yarn install
 
+FROM base as builder
 
+# Copy files
 COPY . .
 RUN yarn build
 
-EXPOSE 3000
+# FROM node:14-alpine as deployment
+# RUN mkdir /app
+# WORKDIR /app
+# COPY --from=builder /app/node_modules ./
+# COPY --from=builder /app/dist ./
+# COPY --from=builder /app/package.json ./
 
-CMD node app.js
+EXPOSE 3000
+CMD yarn serve

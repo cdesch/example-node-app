@@ -1,21 +1,18 @@
 # example-node-app
 
-
 ## Docker Build
-
 
     docker build -t example-node-app -t cdesch/example-node-app .
     docker push cdesch/example-node-app
-    
 
 ## Run
 
+    docker run --rm -p 3000:3000 example-node-app
     docker run --rm -p 3000:3000 cdesch/example-node-app
 
 ## Kubernetes
 
-kubectl config set-context --current --namespace=example-node-app 
-
+kubectl config set-context --current --namespace=example-node-app
 
 Deploy App
 
@@ -23,21 +20,19 @@ Deploy App
     kubectl apply -n example-node-app -f deployments/deployment.yaml
     kubectl delete -n example-node-app -f deployments/deployment.yaml
 
-    kubectl get pods -n example-node-app 
+    kubectl get pods -n example-node-app
     kubectl  logs -n example-node-app  node-app-deployment-5d9fbc8946-cs88x
-
 
 Deploy resources
 
-    kubectl config get-contexts  
+    kubectl config get-contexts
     kubectl config use-context docker-desktop
     kubectl apply -f deployments/setup
     kubectl create -n example-node-app -f deployments
 
     kubectl create -n example-node-app -f deployments/monitoring
-    
-    kubectl create -f deployments/rule.yaml
 
+    kubectl create -f deployments/rule.yaml
 
 Tear Down
 
@@ -47,17 +42,14 @@ Tear Down
 
 ## RPC App
 
-
-
 Deploy resources
 
-    kubectl config get-contexts  
+    kubectl config get-contexts
     kubectl config use-context docker-desktop
     kubectl create -f deployments/rpc-app/setup
     kubectl create -n rpc-app -f deployments/rpc-app
 
     kubectl create -n rpc-app -f deployments/rpc-app
-    
 
 Tear Down
 

@@ -1,5 +1,5 @@
 import express from 'express';
-import { version } from '../package.json';
+import { version } from '../../package.json';
 import logger from '../lib/logger';
 
 const router = express.Router();
