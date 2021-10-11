@@ -16,12 +16,18 @@ kubectl config set-context --current --namespace=example-node-app
 
 Deploy App
 
-    kubectl apply -f deployments/setup
-    kubectl apply -n example-node-app -f deployments
-    kubectl delete -n example-node-app -f deployments
+    kubectl apply -f deployments/1-manual/setup
+    kubectl apply -n example-node-app -f deployments/1-manual
+    kubectl delete -n example-node-app -f deployments/1-manual
+    kubectl delete -f deployments/1-manual/setup
 
     kubectl get pods -n example-node-app
     kubectl  logs -n example-node-app  node-app-deployment-5d9fbc8946-cs88x
+
+Deploy Kustomize
+
+    kubectl apply -k deployments/overlays/dev
+    kubectl apply -k deployments/overlays/prod
 
 Deploy resources
 
