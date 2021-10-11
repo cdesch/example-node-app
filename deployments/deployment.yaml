@@ -25,6 +25,9 @@ spec:
         ports:
         - name: http
           containerPort: 3000
+        envFrom:
+        - configMapRef:
+            name: node-app-config          
         resources:
           requests:
             memory: "64Mi"

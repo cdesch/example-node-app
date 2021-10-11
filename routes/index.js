@@ -1,11 +1,13 @@
-var express = require('express');
-var router = express.Router();
-const logger = require('../logger');
-const { version } = require('../package.json');
+import express from 'express';
+import { version } from '../package.json';
+import logger from '../lib/logger';
+
+const router = express.Router();
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  logger.info("Logit! Index");
-  res.render('index', { title: 'Express', version: version });
+router.get('/', function (req, res, next) {
+  logger.info('Logit! Index');
+  res.render('index', { title: 'Express', version });
 });
 
 module.exports = router;

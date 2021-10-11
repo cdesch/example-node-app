@@ -9,7 +9,9 @@ COPY package.json yarn.lock ./
 # Install Dependencies
 RUN yarn install
 
+
 COPY . .
+RUN yarn build
 
 EXPOSE 3000
 

@@ -4,11 +4,15 @@
   "private": true,
   "scripts": {
     "build": "babel app.js -d dist",
+    "clean": "rm -rf dist",
+    "build2": "npm run clean && babel ./src --out-dir dist --copy-files",
     "start": "npm run build && node dist/index.js",
+    "serve": "node dist/app.js",
     "start:watch": "nodemon --exec babel-node app.js"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "core-js": "^3.18.2",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-prometheus-middleware": "^1.2.0",
@@ -16,6 +20,7 @@
     "jade": "~1.11.0",
     "morgan": "~1.9.1",
     "prom-client": "^14.0.0",
+    "regenerator-runtime": "^0.13.9",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -23,6 +28,12 @@
     "@babel/core": "^7.15.8",
     "@babel/node": "^7.15.8",
     "@babel/preset-env": "^7.15.8",
-    "nodemon": "^2.0.13"
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-prettier": "^4.0.0",
+    "nodemon": "^2.0.13",
+    "prettier": "2.4.1"
   }
 }

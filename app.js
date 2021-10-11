@@ -1,64 +1,54 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-// const client = require('prom-client');
-const promMid = require('express-prometheus-middleware');
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
+import createError from 'http-errors';
+import express from 'express';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import promMid from 'express-prometheus-middleware';
+import morganMiddleware from './lib/morganMiddleware';
+import logger from './lib/logger';
+import { API_HOST, API_PORT } from './lib/config';
+import UtilityController from './controllers/UtilityController';
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
 
-var app = express();
+const app = express();
 
-// const register = new client.Registry();
-
-// client.collectDefaultMetrics({
-//     app: 'node-application-monitoring-app',
-//     prefix: 'node_',
-//     timeout: 10000,
-//     gcDurationBuckets: [0.001, 0.01, 0.1, 1, 2, 5],
-//     register
-// });
-
-app.use(promMid({
-  metricsPath: '/metrics',
-  collectDefaultMetrics: true,
-  requestDurationBuckets: [0.1, 0.5, 1, 1.5],
-  requestLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
-  responseLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
-
-}));
+/**
+ * Prometheus Metrics
+ */
+app.use(
+  promMid({
+    metricsPath: '/metrics',
+    collectDefaultMetrics: true,
+    requestDurationBuckets: [0.1, 0.5, 1, 1.5],
+    requestLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
+    responseLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
+  })
+);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(logger('dev'));
+app.use(morganMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.get('/metrics', async (req, res) => {
-  res.setHeader('Content-Type', register.contentType);
-  res.send(await register.metrics());
-});
-
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/utility', UtilityController);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
-
-
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -68,10 +58,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-
-const host = '0.0.0.0';
-const port = 3000;
-app.listen(port, host, () => {
-  console.log(`listening on port ${host}:${port}`)
+app.listen(API_PORT, API_HOST, () => {
+  logger.info(`listening on port ${API_HOST}:${API_PORT}`);
 });
 // module.exports = app;
