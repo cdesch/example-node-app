@@ -15,6 +15,10 @@ const usersRouter = require('./routes/users');
 
 const app = express();
 
+logger.info('Starting Example Node App');
+logger.info(`API_HOST ${API_HOST}`);
+logger.info(`API_PORT ${API_PORT}`);
+
 /**
  * Prometheus Metrics
  */
