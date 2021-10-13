@@ -5,11 +5,15 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import promMid from 'express-prometheus-middleware';
+import { createLightship } from 'lightship';
 import morganMiddleware from './lib/morganMiddleware';
 import logger from './lib/logger';
 import { API_HOST, API_PORT } from './lib/config';
 import UtilityController from './controllers/UtilityController';
 
+const configuration = {};
+
+const lightship = createLightship(configuration);
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
@@ -64,5 +68,6 @@ app.use(function (err, req, res, next) {
 
 app.listen(API_PORT, API_HOST, () => {
   logger.info(`listening on port ${API_HOST}:${API_PORT}`);
+  lightship.signalReady();
 });
 // module.exports = app;
