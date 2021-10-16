@@ -8,3 +8,4 @@ data:
   API_HOST: "0.0.0.0"
   API_PORT: "3000"
   NODE_ENV: development
+  SENTRY_DSN: https://examplePublicKey@o0.ingest.sentry.io/0

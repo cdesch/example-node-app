@@ -29,6 +29,9 @@ Deploy Kustomize
     kubectl apply -k deployments/overlays/dev
     kubectl apply -k deployments/overlays/prod
 
+    kubectl delete -k deployments/overlays/dev
+    kubectl delete -k deployments/overlays/prod
+
 Deploy resources
 
     kubectl config get-contexts

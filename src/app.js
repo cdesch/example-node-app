@@ -6,10 +6,22 @@ import path from 'path';
 import cookieParser from 'cookie-parser';
 import promMid from 'express-prometheus-middleware';
 import { createLightship } from 'lightship';
+import * as Sentry from '@sentry/node';
+
+// Importing @sentry/tracing patches the global hub for tracing to work.
+import * as Tracing from '@sentry/tracing';
 import morganMiddleware from './lib/morganMiddleware';
 import logger from './lib/logger';
-import { API_HOST, API_PORT } from './lib/config';
+import { API_HOST, API_PORT, SENTRY_DSN } from './lib/config';
 import UtilityController from './controllers/UtilityController';
+
+Sentry.init({
+  dsn: SENTRY_DSN,
+
+  // We recommend adjusting this value in production, or using tracesSampler
+  // for finer control
+  tracesSampleRate: 1.0,
+});
 
 const configuration = {};
 
