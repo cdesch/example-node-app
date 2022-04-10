@@ -75,3 +75,7 @@ Tear Down
     https://github.com/prometheus-operator/prometheus-operator/blob/master/Documentation/user-guides/getting-started.md
 
     https://stackabuse.com/nodejs-application-monitoring-with-prometheus-and-grafana/
+
+
+
+Enum.reduce([:a, :b, :c], %{}, fn x, acc -> Map.put(acc, x, 1) end)

@@ -1,0 +1,13 @@
+version: '3.9' # optional since v1.27.0
+services:
+  web:
+    build: .
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    environment:
+      API_HOST: '0.0.0.0'
+      API_PORT: '3000'
+      NODE_ENV: development
+      SENTRY_DSN: https://examplePublicKey@o0.ingest.sentry.io/0

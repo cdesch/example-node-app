@@ -4,7 +4,7 @@ import createError from 'http-errors';
 import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
-import promMid from 'express-prometheus-middleware';
+import promBundle from 'express-prom-bundle';
 import { createLightship } from 'lightship';
 import * as Sentry from '@sentry/node';
 
@@ -14,6 +14,8 @@ import morganMiddleware from './lib/morganMiddleware';
 import logger from './lib/logger';
 import { API_HOST, API_PORT, SENTRY_DSN } from './lib/config';
 import UtilityController from './controllers/UtilityController';
+
+const metricsMiddleware = promBundle({ includeMethod: true });
 
 Sentry.init({
   dsn: SENTRY_DSN,
@@ -32,21 +34,10 @@ const usersRouter = require('./routes/users');
 const app = express();
 
 logger.info('Starting Example Node App');
-logger.info(`API_HOST ${API_HOST}`);
-logger.info(`API_PORT ${API_PORT}`);
+logger.info(`API_HOST: ${API_HOST}`);
+logger.info(`API_PORT: ${API_PORT}`);
 
-/**
- * Prometheus Metrics
- */
-app.use(
-  promMid({
-    metricsPath: '/metrics',
-    collectDefaultMetrics: true,
-    requestDurationBuckets: [0.1, 0.5, 1, 1.5],
-    requestLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
-    responseLengthBuckets: [512, 1024, 5120, 10240, 51200, 102400],
-  })
-);
+app.use(metricsMiddleware);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

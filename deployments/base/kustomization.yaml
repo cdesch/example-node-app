@@ -6,4 +6,8 @@ resources:
   - configmap.yaml
   - deployment.yaml
   - service.yaml
-  
+
+configMapGenerator:
+  - name: app-config
+    literals:
+      - APP_NAME=myapp
